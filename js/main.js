@@ -16,7 +16,8 @@ const CHECKOUT_TIME = [
   '13:00',
   '14:00',
 ];
-const TYPE = ['palace',
+const TYPE = [
+  'palace',
   'flat',
   'house',
   'bungalow',
@@ -73,7 +74,7 @@ const getRandomValue = (min, max) => {
 getRandomValue(1, 5);
 
 /*Функция  число*/
-const getRandom = (min, max) => Math.random() * (max - min) + min;
+const getRandom = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 getRandom(1, 5);
 
 /*Описание автора*/
@@ -97,7 +98,7 @@ const getLocation = () => ({
   y: getRandomValue(CoorY.MIN, CoorY.MAX, DECIMAL_FOR_LOCATION),
 });
 
-const getRandomArrayElement = function(elements) {
+const getRandomArrayElement = elements => {
   return elements[getRandom(0, elements.length - 1)];
 };
 
@@ -106,13 +107,13 @@ const generateOffer = () => ({
   address: Object.values(getLocation()),
   price: getRandom(PriceNumber.MIN, PriceNumber.MAX),
   type: getRandomArrayElement(TYPE),
-  rooms: getRandom(NumberForOffer.MIN, NumberForOffer.MAX),
-  guests: getRandom(NumberForOffer.MIN, NumberForOffer.MAX),
+  room: getRandom(NumberForOffer.MIN, NumberForOffer.MAX),
+  guest: getRandom(NumberForOffer.MIN, NumberForOffer.MAX),
   checkin: getRandomArrayElement(CHECKIN_TIME),
   checkout: getRandomArrayElement(CHECKOUT_TIME),
-  features: getSingleArray(FEATURE),
+  feature: getSingleArray(FEATURE),
   description: getRandomArrayElement(DESCRIPTION),
-  photos: getSingleArray(ART),
+  art: getSingleArray(ART),
 });
 const getObject = () => ({
   author: getAuthor(),
