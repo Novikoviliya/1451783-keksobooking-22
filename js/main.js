@@ -67,9 +67,7 @@ const PriceNumber = {
 
 /*Функция случайное число с точкой*/
 const getRandomValue = (min, max) => {
-  const minValue = Math.ceil(min);
-  const maxValue = Math.floor(max);
-  return Math.random() * (maxValue - minValue + 1) + minValue;
+  return Math.random() * (max - min + 1) + min;
 }
 getRandomValue(1, 5);
 
