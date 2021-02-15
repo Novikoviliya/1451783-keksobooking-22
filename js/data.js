@@ -63,7 +63,6 @@ const PriceNumber = {
   MIN: 0,
   MAX: 100,
 };
-
 /*Описание автора*/
 const getAuthor = () => ({
   avatar: `img/avatars/user0${getRandom(ImageNumber.MIN, ImageNumber.MAX)}.png`,
