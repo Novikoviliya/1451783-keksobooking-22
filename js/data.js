@@ -22,7 +22,7 @@ const TYPE = [
   'house',
   'bungalow',
 ];
-const FEATURE = [
+const FEATURES = [
   'wifi',
   'dishwasher',
   'parking',
@@ -36,7 +36,7 @@ const DESCRIPTION = [
   'Предоставляется бесплатный Wi-Fi. Второй раз здесь.',
   'К услугам гостей ночной клуб и бесплатный доступ в интернет.',
 ];
-const ART = [
+const PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
@@ -94,9 +94,9 @@ const generateOffer = () => ({
   guest: getRandom(NumberForOffer.MIN, NumberForOffer.MAX),
   checkin: getRandomArrayElement(CHECKIN_TIME),
   checkout: getRandomArrayElement(CHECKOUT_TIME),
-  feature: getSingleArray(FEATURE),
+  features: getSingleArray(FEATURES),
   description: getRandomArrayElement(DESCRIPTION),
-  art: getSingleArray(ART),
+  photos: getSingleArray(PHOTOS),
 });
 const getObject = () => ({
   author: getAuthor(),
@@ -107,3 +107,4 @@ const getObject = () => ({
 const createGame = new Array(10).fill(null).map(getObject);
 
 createGame;
+export { createGame };

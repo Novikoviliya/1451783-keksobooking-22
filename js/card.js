@@ -1,4 +1,5 @@
 'use strict'
+import { createGame } from './data.js';
 const map = document.querySelector('#map-canvas');
 const cardTemplate = document.querySelector('#card').content;
 const fragment = document.createDocumentFragment();
@@ -41,4 +42,5 @@ const renderCard = (card) => {
   fragment.appendChild(cardElement);
   return fragment;
 };
-map.appendChild(renderCard);
+map.appendChild(renderCard(createGame[0]));
+export { renderCard };
