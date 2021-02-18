@@ -1,5 +1,5 @@
 'use strict';
-import { getRandomArrayElement, getRandom, getRandomValue } from './until.js'
+import { getRandomArrayElement, getRandom, getRandomValue } from './util.js'
 const TITLE = [
   'Radisson',
   'Mercure',
@@ -90,8 +90,8 @@ const generateOffer = () => ({
   address: Object.values(getLocation()),
   price: getRandom(PriceNumber.MIN, PriceNumber.MAX),
   type: getRandomArrayElement(TYPE),
-  room: getRandom(NumberForOffer.MIN, NumberForOffer.MAX),
-  guest: getRandom(NumberForOffer.MIN, NumberForOffer.MAX),
+  rooms: getRandom(NumberForOffer.MIN, NumberForOffer.MAX),
+  guests: getRandom(NumberForOffer.MIN, NumberForOffer.MAX),
   checkin: getRandomArrayElement(CHECKIN_TIME),
   checkout: getRandomArrayElement(CHECKOUT_TIME),
   features: getSingleArray(FEATURES),
