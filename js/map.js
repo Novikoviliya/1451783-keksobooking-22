@@ -1,4 +1,5 @@
 'use strict';
+/* global L:readonly */
 import { deactivateMapForm, activateMapForm, fillAddress } from './form.js';
 import { createGame } from './data.js';
 import { renderCard } from './card.js';

@@ -105,5 +105,5 @@ const getObject = () => ({
   location: getLocation(),
 });
 
-const createGame = new Array(10).fill(null).map(getObject);
+const createGame = () => new Array(10).fill(null).map(getObject);
 export { createGame, LOCATION_PRECISION };
