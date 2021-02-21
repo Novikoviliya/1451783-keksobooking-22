@@ -1,8 +1,5 @@
 'use strict'
-import { createGame } from './data.js';
-const map = document.querySelector('#map-canvas');
-const cardTemplate = document.querySelector('#card').content;
-const fragment = document.createDocumentFragment();
+const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 const imgTemplate = document.querySelector('#card').content.querySelector('.popup__photo');
 
 /*Вставка изображений*/
@@ -39,8 +36,7 @@ const renderCard = (card) => {
   cardElement.querySelector('.popup__description').textContent = card.offer.description;
   cardElement.querySelector('.popup__avatar').src = card.author.avatar;
 
-  fragment.appendChild(cardElement);
-  return fragment;
+  return cardElement;
 };
-map.appendChild(renderCard(createGame[0]));
+
 export { renderCard };

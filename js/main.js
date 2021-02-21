@@ -1,2 +1,2 @@
-import './card.js';
-import './form.js';
+import { createadCards } from './map.js';
+createadCards();
