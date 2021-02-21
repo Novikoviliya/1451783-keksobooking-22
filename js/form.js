@@ -66,27 +66,23 @@ const fillAddress = ({ lat, long }) => {
   address.value = `${latitude} ${longitude}`;
 }
 
-const activateMapForm = (startingAddress) => {
-  return () => {
-    form.classList.remove('ad-form--disabled');
+const activateMapForm = () => {
+  form.classList.remove('ad-form--disabled');
 
-    form.querySelectorAll('fieldset').forEach((fieldset) => {
-      fieldset.classList.remove('disabled');
-    });
+  form.querySelectorAll('fieldset').forEach((fieldset) => {
+    fieldset.classList.remove('disabled');
+  });
 
-    mapFilters.classList.remove('map__filters--disabled');
-    mapFilters.querySelectorAll('.map__filter').forEach((filter) => {
-      filter.classList.remove('disabled');
-    });
+  mapFilters.classList.remove('map__filters--disabled');
+  mapFilters.querySelectorAll('.map__filter').forEach((filter) => {
+    filter.classList.remove('disabled');
+  });
 
-    mapFilters.querySelectorAll('.map__features').forEach((feature) => {
-      feature.classList.remove('disabled');
-    });
+  mapFilters.querySelectorAll('.map__features').forEach((feature) => {
+    feature.classList.remove('disabled');
+  });
 
-    address.setAttribute('readonly', 'readonly');
-
-    fillAddress(startingAddress);
-  }
+  address.setAttribute('readonly', 'readonly');
 }
 
 export { deactivateMapForm, activateMapForm, fillAddress };
