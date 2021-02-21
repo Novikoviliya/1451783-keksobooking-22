@@ -41,7 +41,7 @@ mainMarker.on('move', onMove);
 //Всплывашка
 const adCards = createGame();
 
-const createadCards = () => {
+const createMaps = () => {
   adCards.forEach(({ author, offer, location }) => {
     const icon = L.icon({
       iconUrl: 'img/pin.svg',
@@ -66,4 +66,5 @@ const createadCards = () => {
       );
   });
 }
-export { createadCards };
+createMaps();
+export { createMaps };

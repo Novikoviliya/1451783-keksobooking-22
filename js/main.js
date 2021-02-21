@@ -1,2 +1,1 @@
-import { createadCards } from './map.js';
-createadCards();
+import './map.js';
