@@ -3,7 +3,6 @@
 import { deactivateMapForm, activateMapForm, fillAddress } from './form.js';
 import { createGame } from './data.js';
 import { renderCard } from './card.js';
-
 deactivateMapForm();
 const map = L.map('map-canvas')
   .on('load', () => { activateMapForm(); })

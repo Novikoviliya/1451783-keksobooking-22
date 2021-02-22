@@ -9,6 +9,8 @@ const housePrice = {
 
 const form = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
+const mapFiltersFields = mapFilters.querySelectorAll('label, input, select');
+const formFields = form.querySelectorAll('label, input, select, textarea, button');
 const address = form.querySelector('#address');
 const timeIn = form.querySelector('#timein');
 const timeOut = form.querySelector('#timeout');
@@ -44,45 +46,38 @@ const toSyncTimeIn = () => {
   timeIn.value = timeOut.value;
 };
 //НЕактивное состояние
+let className = null;
+const changeName = () => {
+  mapFilters ? className = 'map__filters--disabled' : className = 'ad-form--disabled';
+}
+const disableForm = (form, fields) => {
+  changeName();
+  form.classList.add(className);
+  fields.forEach((field) => {
+    field.disabled = true;
+  })
+};
+const enableForm = (form, fields) => {
+  changeName();
+  form.classList.remove(className);
+  fields.forEach((field) => {
+    field.disabled = false;
+  })
+};
 const deactivateMapForm = () => {
-  form.classList.add('ad-form--disabled');
-  form.querySelectorAll('fieldset').forEach((fieldset) => {
-    fieldset.classList.add('disabled');
-  });
-
-  mapFilters.classList.add('map__filters--disabled');
-  mapFilters.querySelectorAll('.map__filter').forEach((filter) => {
-    filter.classList.add('disabled');
-  })
-
-  mapFilters.querySelectorAll('.map__features').forEach((feature) => {
-    feature.classList.add('disabled');
-  })
+  disableForm(form, formFields);
+  disableForm(mapFilters, mapFiltersFields);
+}
+const activateMapForm = () => {
+  enableForm(form, formFields);
+  enableForm(mapFilters, mapFiltersFields);
+  address.setAttribute('readonly', 'readonly');
 }
 
 const fillAddress = ({ lat, long }) => {
   const latitude = lat.toFixed(LOCATION_PRECISION);
   const longitude = long.toFixed(LOCATION_PRECISION);
   address.value = `${latitude} ${longitude}`;
-}
-
-const activateMapForm = () => {
-  form.classList.remove('ad-form--disabled');
-
-  form.querySelectorAll('fieldset').forEach((fieldset) => {
-    fieldset.classList.remove('disabled');
-  });
-
-  mapFilters.classList.remove('map__filters--disabled');
-  mapFilters.querySelectorAll('.map__filter').forEach((filter) => {
-    filter.classList.remove('disabled');
-  });
-
-  mapFilters.querySelectorAll('.map__features').forEach((feature) => {
-    feature.classList.remove('disabled');
-  });
-
-  address.setAttribute('readonly', 'readonly');
 }
 
 export { deactivateMapForm, activateMapForm, fillAddress };
