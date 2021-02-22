@@ -6,6 +6,12 @@ const housePrice = {
   house: 5000,
   palace: 10000,
 };
+const roomS = {
+  '1': { '1': 'для 1 гостя' },
+  '2': { '2': 'для 2 гостей', '1': 'для 1 гостя' },
+  '3': { '3': 'для 3 гостей', '2': 'для 2 гостей', '1': 'для 1 гостя' },
+  '100': { '0': 'не для гостей' },
+};
 
 const form = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
@@ -81,13 +87,6 @@ const fillAddress = ({ lat, long }) => {
   const longitude = long.toFixed(LOCATION_PRECISION);
   address.value = `${latitude} ${longitude}`;
 }
-const roomS = {
-  '1': { '1': 'для 1 гостя' },
-  '2': { '2': 'для 2 гостей', '1': 'для 1 гостя' },
-  '3': { '3': 'для 3 гостей', '2': 'для 2 гостей', '1': 'для 1 гостя' },
-  '100': { '0': 'не для гостей' },
-};
-
 const addCustomValiditytoCapacity = () => {
   guests.setCustomValidity('');
 
