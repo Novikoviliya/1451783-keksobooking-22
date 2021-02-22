@@ -11,6 +11,8 @@ const form = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
 const mapFiltersFields = mapFilters.querySelectorAll('label, input, select');
 const formFields = form.querySelectorAll('label, input, select, textarea, button');
+const numberRooms = document.querySelector('#room_number');
+const guests = document.querySelector('#capacity');
 const address = form.querySelector('#address');
 const timeIn = form.querySelector('#timein');
 const timeOut = form.querySelector('#timeout');
@@ -80,4 +82,43 @@ const fillAddress = ({ lat, long }) => {
   address.value = `${latitude} ${longitude}`;
 }
 
+const checkRoomNumberAndCapa = () => {
+  switch (numberRooms.value) {
+    case '1':
+      if (guests.value !== '1') {
+        guests.setCustomValidity('для 1 комнаты только для 1 гостя!');
+      } else {
+        guests.setCustomValidity('');
+      }
+      break;
+    case '2':
+      if (!['1', '2'].includes(guests.value)) {
+        guests.setCustomValidity('2 комнаты  от 1 до 2!');
+      } else {
+        guests.setCustomValidity('');
+      }
+      break;
+    case '3':
+      if (!['1', '2', '3'].includes(guests.value)) {
+        guests.setCustomValidity('3 комнаты от 1 до 3!');
+      } else {
+        guests.setCustomValidity('');
+      }
+      break;
+    case '100':
+      if (guests.value !== '0') {
+        guests.setCustomValidity('100 комнат не для гостей!');
+      } else {
+        guests.setCustomValidity('');
+      }
+  }
+};
+
+numberRooms.addEventListener('change', () => {
+  checkRoomNumberAndCapa();
+});
+
+guests.addEventListener('change', () => {
+  checkRoomNumberAndCapa();
+});
 export { deactivateMapForm, activateMapForm, fillAddress };
