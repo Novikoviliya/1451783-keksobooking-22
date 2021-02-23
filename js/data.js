@@ -16,6 +16,7 @@ const CHECKOUT_TIME = [
   '13:00',
   '14:00',
 ];
+const LOCATION_PRECISION = 5;
 const TYPE = [
   'palace',
   'flat',
@@ -61,7 +62,7 @@ const NumberForOffer = {
 
 const PriceNumber = {
   MIN: 0,
-  MAX: 100,
+  MAX: 10000,
 };
 /*Описание автора*/
 const getAuthor = () => ({
@@ -104,7 +105,5 @@ const getObject = () => ({
   location: getLocation(),
 });
 
-const createGame = new Array(10).fill(null).map(getObject);
-
-createGame;
-export { createGame };
+const createGame = () => new Array(10).fill(null).map(getObject);
+export { createGame, LOCATION_PRECISION };
