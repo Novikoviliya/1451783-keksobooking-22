@@ -8,7 +8,6 @@ const fillMap = (map) => {
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
-
   const mainIcon = L.icon({
     iconUrl: 'img/main-pin.svg',
     iconSize: [45, 45],
@@ -22,7 +21,13 @@ const fillMap = (map) => {
     draggable: true,
     icon: mainIcon,
   }).addTo(map);
-
+  //По умолчанию значение координат
+  const tokyoCoor = {
+    lat: 35.6895,
+    long: 139.692,
+  }
+  fillAddress(tokyoCoor);
+  //При движении балуна
   const onMove = (evt) => {
     const addressLoc = {
       lat: evt.target.getLatLng().lat,
@@ -32,7 +37,7 @@ const fillMap = (map) => {
   }
 
   mainMarker.on('move', onMove);
-  //Всплывашка
+  //Отображение объявления
   const adCards = createGame();
   adCards.forEach(({ author, offer, location }) => {
     const icon = L.icon({

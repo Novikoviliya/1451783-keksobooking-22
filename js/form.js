@@ -25,7 +25,7 @@ const timeOut = form.querySelector('#timeout');
 const price = form.querySelector('#price');
 const typeFlat = form.querySelector('#type');
 
-/*выбор опции меняет атрибуты минимального значения и плейсхолдера поля «Цена за ночь»;*/
+//выбор опции меняет атрибуты минимального значения и плейсхолдера поля «Цена за ночь»
 const setMinPrice = () => {
   const minPrice = housePrice[typeFlat.value];
 
@@ -37,7 +37,7 @@ typeFlat.addEventListener('change', () => {
   setMinPrice();
 });
 
-/*выбор опции одного поля автоматически изменят значение другого.*/
+//выбор опции одного поля автоматически изменят значение другого.
 timeIn.addEventListener('change', () => {
   toSyncTimeOut();
 });
@@ -53,7 +53,7 @@ const toSyncTimeOut = () => {
 const toSyncTimeIn = () => {
   timeIn.value = timeOut.value;
 };
-//НЕактивное состояние
+//НЕактивное состояние формы
 let className = null;
 const changeName = () => {
   mapFilters ? className = 'map__filters--disabled' : className = 'ad-form--disabled';
@@ -65,6 +65,7 @@ const disableForm = (form, fields) => {
     field.disabled = true;
   })
 };
+//Активное состояние формы
 const enableForm = (form, fields) => {
   changeName();
   form.classList.remove(className);
@@ -72,21 +73,24 @@ const enableForm = (form, fields) => {
     field.disabled = false;
   })
 };
+//Отключение формы нет карты
 const deactivateMapForm = () => {
   disableForm(form, formFields);
   disableForm(mapFilters, mapFiltersFields);
 }
+//Включение формы есть карта
 const activateMapForm = () => {
   enableForm(form, formFields);
   enableForm(mapFilters, mapFiltersFields);
   address.setAttribute('readonly', 'readonly');
 }
-
+//Ручное редактирование запрещено
 const fillAddress = ({ lat, long }) => {
   const latitude = lat.toFixed(LOCATION_PRECISION);
   const longitude = long.toFixed(LOCATION_PRECISION);
   address.value = `${latitude} ${longitude}`;
 }
+//Проверка комнат и гостей
 const addCustomValiditytoCapacity = () => {
   guests.setCustomValidity('');
 

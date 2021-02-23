@@ -64,18 +64,18 @@ const PriceNumber = {
   MIN: 0,
   MAX: 10000,
 };
-/*Описание автора*/
+//Описание автора
 const getAuthor = () => ({
   avatar: `img/avatars/user0${getRandom(ImageNumber.MIN, ImageNumber.MAX)}.png`,
 });
 
-/*Локация*/
+//Локация
 const getLocation = () => ({
   x: getRandomValue(CoorX.MIN, CoorX.MAX),
   y: getRandomValue(CoorY.MIN, CoorY.MAX),
 });
 
-/*Длина массива рандом*/
+//Длина массива рандом
 const getSingleArray = (items) => {
   const singleArray = [];
   for (let i = 0; i <= getRandom(0, items.length - 1); i++) {
