@@ -1,11 +1,11 @@
 'use strict';
-/*Функция случайное число с точкой*/
+//Функция случайное целое число с точкой
 const getRandomValue = (min, max) => {
   return Math.random() * (max - min) + min;
 }
 getRandomValue(1, 5);
 
-/*Функция  число*/
+//Функция случайное число
 const getRandom = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 getRandom(1, 5);
 

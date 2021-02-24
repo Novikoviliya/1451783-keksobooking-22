@@ -2,7 +2,7 @@
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 const imgTemplate = document.querySelector('#card').content.querySelector('.popup__photo');
 
-/*Вставка изображений*/
+//Вставка изображений
 const insertPhotos = (element, array) => {
   element.innerHTML = '';
 
@@ -12,7 +12,7 @@ const insertPhotos = (element, array) => {
     element.appendChild(adPhoto);
   });
 };
-/*Удобства*/
+//Удобства
 const insertFeatures = (element, array) => {
   element.innerHTML = '';
 
