@@ -2,6 +2,8 @@
 /* global L:readonly */
 import { fillAddress, activateMapForm } from './form.js';
 import { renderCard } from './card.js';
+import { getData } from './server.js';
+import { showAlert } from './util.js';
 const map = L.map('map-canvas')
   .on('load', () => { activateMapForm(); })
   .setView({
@@ -41,15 +43,24 @@ const onMove = (evt) => {
 
 mainMarker.on('move', onMove);
 //Отображение объявления
-const adCards = (data) => {
-  data.forEach((element) => {
+const processData = async() => {
+  let adOffers = [];
+
+  try {
+    adOffers = await getData();
+  } catch (err) {
+    showAlert('При загрузке данных с сервера произошла ошибка запроса');
+  }
+
+
+  adOffers.forEach((card) => {
     const icon = L.icon({
       iconUrl: 'img/pin.svg',
       iconSize: [40, 40],
       iconAnchor: [40 / 2, 40],
     });
-    const lat = element.location.x;
-    const lng = element.location.y;
+    const lat = card.location.lat;
+    const lng = card.location.lng;
     const marker = L.marker({
       lat,
       lng,
@@ -60,10 +71,11 @@ const adCards = (data) => {
     marker
       .addTo(map)
       .bindPopup(
-        renderCard(element), {
+        renderCard(card), {
           keepInView: true,
         },
       );
   });
 }
-export { adCards, mainMarker };
+processData();
+export { mainMarker };

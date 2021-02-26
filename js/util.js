@@ -19,6 +19,9 @@ const isEscEvent = (evt) => {
 const isEnterEvent = (evt) => {
   return evt.key === 'Enter';
 };
+const isMouseEvent = (evt) => {
+  return evt.type === 'click';
+};
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
 
@@ -40,4 +43,4 @@ const showAlert = (message) => {
     alertContainer.remove();
   }, 3000);
 }
-export { getRandomArrayElement, getRandom, getRandomValue, isEscEvent, isEnterEvent, showAlert };
+export { getRandomArrayElement, getRandom, getRandomValue, isEscEvent, isEnterEvent, showAlert, isMouseEvent };

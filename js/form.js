@@ -1,6 +1,6 @@
 'use strict';
 import { LOCATION_PRECISION } from './data.js';
-import { isEscEvent, isEnterEvent } from './util.js';
+import { isEscEvent, isMouseEvent } from './util.js';
 import { sendData } from './server.js';
 import { mainMarker } from './map.js';
 const housePrice = {
@@ -135,7 +135,7 @@ const getSuccessMessage = () => {
 }
 
 const closeSuccessMessage = (evt) => {
-  if (isEscEvent(evt) || isEnterEvent(evt)) {
+  if (isEscEvent(evt) || isMouseEvent(evt)) {
     evt.preventDefault();
     successMessage.remove();
     document.removeEventListener('keydown', closeSuccessMessage);
@@ -153,7 +153,7 @@ const getErrorMessage = () => {
 }
 
 const closeErrorMessage = (evt) => {
-  if (isEscEvent(evt) || isEnterEvent(evt)) {
+  if (isEscEvent(evt) || isMouseEvent(evt)) {
     evt.preventDefault();
     errorMessage.remove();
     document.removeEventListener('keydown', closeErrorMessage);
