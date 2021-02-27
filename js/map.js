@@ -1,52 +1,66 @@
 'use strict';
 /* global L:readonly */
-import { fillAddress } from './form.js';
-import { createGame } from './data.js';
+import { fillAddress, activateMapForm } from './form.js';
 import { renderCard } from './card.js';
-
-const fillMap = (map) => {
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  }).addTo(map);
-  const mainIcon = L.icon({
-    iconUrl: 'img/main-pin.svg',
-    iconSize: [45, 45],
-    iconAnchor: [45 / 2, 45],
-  });
-
-  const mainMarker = L.marker({
+import { getData } from './server.js';
+import { showAlert } from './util.js';
+const map = L.map('map-canvas')
+  .on('load', () => { activateMapForm(); })
+  .setView({
     lat: 35.6895,
     lng: 139.692,
-  }, {
-    draggable: true,
-    icon: mainIcon,
-  }).addTo(map);
-  //По умолчанию значение координат
-  const tokyoCoor = {
-    lat: 35.6895,
-    long: 139.692,
+  }, 13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+}).addTo(map);
+const mainIcon = L.icon({
+  iconUrl: 'img/main-pin.svg',
+  iconSize: [45, 45],
+  iconAnchor: [45 / 2, 45],
+});
+
+const mainMarker = L.marker({
+  lat: 35.6895,
+  lng: 139.692,
+}, {
+  draggable: true,
+  icon: mainIcon,
+}).addTo(map);
+//По умолчанию значение координат
+const tokyoCoor = {
+  lat: 35.6895,
+  long: 139.692,
+}
+fillAddress(tokyoCoor);
+//При движении балуна
+const onMove = (evt) => {
+  const addressLoc = {
+    lat: evt.target.getLatLng().lat,
+    long: evt.target.getLatLng().lng,
   }
-  fillAddress(tokyoCoor);
-  //При движении балуна
-  const onMove = (evt) => {
-    const addressLoc = {
-      lat: evt.target.getLatLng().lat,
-      long: evt.target.getLatLng().lng,
-    }
-    fillAddress(addressLoc);
+  fillAddress(addressLoc);
+}
+
+mainMarker.on('move', onMove);
+//Отображение объявления
+const processData = async() => {
+  let adOffers = [];
+
+  try {
+    adOffers = await getData();
+  } catch (err) {
+    showAlert('При загрузке данных с сервера произошла ошибка запроса');
   }
 
-  mainMarker.on('move', onMove);
-  //Отображение объявления
-  const adCards = createGame();
-  adCards.forEach(({ author, offer, location }) => {
+
+  adOffers.forEach((card) => {
     const icon = L.icon({
       iconUrl: 'img/pin.svg',
       iconSize: [40, 40],
       iconAnchor: [40 / 2, 40],
     });
-    const lat = location.x;
-    const lng = location.y;
+    const lat = card.location.lat;
+    const lng = card.location.lng;
     const marker = L.marker({
       lat,
       lng,
@@ -57,11 +71,11 @@ const fillMap = (map) => {
     marker
       .addTo(map)
       .bindPopup(
-        renderCard({ author, offer }), {
+        renderCard(card), {
           keepInView: true,
         },
       );
   });
-  return map;
 }
-export { fillMap };
+processData();
+export { mainMarker };
