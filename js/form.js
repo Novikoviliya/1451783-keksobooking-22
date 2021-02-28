@@ -171,4 +171,4 @@ const setFormSubmit = () => {
 };
 
 setFormSubmit();
-export { deactivateMapForm, activateMapForm, fillAddress };
+export { deactivateMapForm, activateMapForm, fillAddress, mapFilters };

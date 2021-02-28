@@ -45,14 +45,14 @@ mainMarker.on('move', onMove);
 //Отображение объявления
 const processData = async() => {
   let adOffers = [];
-
+  const OFFERS_CARD_NUMBER = 10;
   try {
     adOffers = await getData();
   } catch (err) {
     showAlert('При загрузке данных с сервера произошла ошибка запроса');
   }
 
-
+  adOffers.length > OFFERS_CARD_NUMBER ? adOffers.length = OFFERS_CARD_NUMBER : null;
   adOffers.forEach((card) => {
     const icon = L.icon({
       iconUrl: 'img/pin.svg',
@@ -77,5 +77,16 @@ const processData = async() => {
       );
   });
 }
+//Удаление маркера
+const removePins = () => {
+  map.eachLayer((marker) => {
+    if (marker instanceof L.Marker && marker !== mainMarker) {
+      marker.remove();
+    }
+  })
+};
 processData();
-export { mainMarker };
+export { mainMarker,processData, removePins };
+
+
+
