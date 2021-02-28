@@ -81,7 +81,7 @@ const processData = async() => {
 const removePins = () => {
   map.eachLayer((marker) => {
     if (marker instanceof L.Marker && marker !== mainMarker) {
-      marker.remove();
+      marker.closePopup();
     }
   })
 };
