@@ -1,70 +1,82 @@
-'use strict';
-import {mapFilters} from './form.js'
-import{removePins, processData} from './map.js'
-import {getData} from './server.js'
-const mapMain = document.querySelector('.map');
-const typeTake = mapFilters.querySelector('#housing-type');
-const priceTake = mapFilters.querySelector('#housing-price');
-const roomTake = mapFilters.querySelector('#housing-rooms');
-const guestTake = mapFilters.querySelector('#housing-guests');
-const featuresField = mapFilters.querySelector('#housing-features');
-const featuresList = featuresField.querySelectorAll('.map__checkbox');
-const filterByType = (card) => card.filter((card) => card.offer.type === typeTake.value || typeTake.value === 'any');
-const filterByPrice = (card) => {
-  if (priceTake.value === 'low') {
-    return card.filter((card) => card.offer.price <= 1000);
-  } else if (priceTake.value === 'middle') {
-    return card.filter((card) => card.offer.price >= 1000 && card.offer.price <= 50000);
-  } else if (priceTake.value === 'high') {
-    return card.filter((card) => card.offer.price >= 5000);
-  } else {
-    return card;
+const filter = document.querySelector('.map__filters');
+
+const selects = filter.querySelectorAll('select');
+
+const typeSelect = filter.querySelector('#housing-type');
+
+const priceSelect = filter.querySelector('#housing-price');
+
+const roomsSelect = filter.querySelector('#housing-rooms');
+
+const guestsSelect = filter.querySelector('#housing-guests');
+
+const featuresSelect = filter.querySelector('#housing-features');
+
+const disableFilter = () => {
+  filter.classList.add('map__filters--disabled');
+  selects.forEach((select) => {
+    select.disabled = true;
+  });
+  featuresSelect.disabled = true;
+};
+
+disableFilter();
+
+const enableFilter = () => {
+  filter.classList.remove('map__filters--disabled');
+  selects.forEach((select) => {
+    select.disabled = false;
+  });
+  featuresSelect.disabled = false;
+};
+
+const getFilterByPrice = (card) => {
+  const LOW_PRICE = 10000;
+
+  const HIGH_PRICE = 50000;
+
+  switch (priceSelect.value) {
+    case 'low':
+      return card.offer.price < LOW_PRICE;
+    case 'middle':
+      return card.offer.price >= LOW_PRICE && card.offer.price <= HIGH_PRICE;
+    case 'high':
+      return card.offer.price > HIGH_PRICE;
+    case 'any':
+      return true;
   }
 };
 
-const filterByRoom = (card) => {
-  if (roomTake.value === '1') {
-    return card.filter((card) => card.offer.rooms === 1);
-  } else if (roomTake.value === '2') {
-    return card.filter((card) => card.offer.rooms === 2);
-  } else if (roomTake.value === '3') {
-    return card.filter((card) => card.offer.rooms === 3);
-  } else {
-    return card;
-  }
+const getFilterByFeatures = (card) => {
+  const CHECKED_FEATURES = featuresSelect.querySelectorAll('input:checked');
+  return Array.from(CHECKED_FEATURES).every((input) => {
+    return card.offer.features.includes(input.value);
+  });
 };
 
-const filterByGuests = (card) => {
-  if (guestTake.value === '1') {
-    return card.filter((card) => card.offer.guests === 1);
-  } else if (guestTake.value === '2') {
-    return card.filter((card) => card.offer.guests === 2);
-  } else if (guestTake.value === '0') {
-    return card.filter((card) => card.offer.guests > 2);
-  } else {
-    return card;
-  }
+const filterData = (card) => {
+  const FILTER_BY_TYPE = typeSelect.value === 'any' || typeSelect.value === card.offer.type;
+
+  const FILTER_BY_ROOMS = roomsSelect.value === 'any' || +roomsSelect.value === card.offer.rooms;
+
+  const FILTER_BY_GUESTS = guestsSelect.value === 'any' || +guestsSelect.value === card.offer.guests;
+
+  const FILTER_BY_PRICE = getFilterByPrice(card);
+
+  const FILTER_BY_FEATURES = getFilterByFeatures(card);
+
+  return FILTER_BY_TYPE && FILTER_BY_ROOMS && FILTER_BY_GUESTS && FILTER_BY_PRICE && FILTER_BY_FEATURES;
 };
-const filterByFeatures = (card) => {
-  for (let feature of featuresList) {
-    if (feature.checked === true) {
-      return card.filter((card) => card.offer.features.includes(feature.value));
-    } else {
-      return card;
-    }
-  }
+const setFilterChange = (cb) => {
+  filter.addEventListener('change', () => {
+    cb();
+  });
 }
-mapFilters.addEventListener('change', (evt) => {
-  removePins();
-  if(evt.target.name === 'housing-type') {
-    getData((card) => processData(filterByType(card)), mapMain);
-  } else if (evt.target.name === 'housing-price') {
-    getData((card) => processData(filterByPrice(card)), mapMain);
-  } else if(evt.target.name === 'housing-rooms') {
-    getData((card) => processData(filterByRoom(card)), mapMain);
-  } else if (evt.target.name === 'housing-guests') {
-    getData((card) => processData(filterByGuests(card)), mapMain);
-  } else if (evt.target.name === 'features') {
-    getData((card) => processData(filterByFeatures(card)), mapMain);
-  }
-});
+const setFilterReset = (cb) => {
+  filter.addEventListener('reset', () => {
+    setTimeout(() => {
+      cb();
+    }, 0);
+  });
+};
+export { enableFilter, disableFilter, filter, filterData, setFilterReset, setFilterChange };
