@@ -3,6 +3,7 @@ import { LOCATION_PRECISION } from './data.js';
 import { isEscEvent, isMouseEvent } from './util.js';
 import { sendData } from './server.js';
 import { mainMarker } from './map.js';
+import { resetPreviewImages } from './filter-image.js';
 const housePrice = {
   bungalow: 0,
   flat: 1000,
@@ -117,6 +118,7 @@ guests.addEventListener('change', addCustomValiditytoCapacity);
 const resetForm = () => {
   form.reset();
   mapFilters.reset();
+  resetPreviewImages();
   mainMarker.setLatLng({ lat: 35.6895, lng: 139.692 });
   setTimeout(() => {
     fillAddress({ lat: 35.6895, long: 139.692 });
