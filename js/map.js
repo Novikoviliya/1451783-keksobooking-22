@@ -3,11 +3,12 @@
 /* global _:readonly */
 import { fillAddress, activateMapForm } from './form.js';
 import { renderCard } from './card.js';
-import { enableFilter, disableFilter } from './filter.js';
+import { enableFilter, disableFilter} from './filter.js';
 import { getData } from './server.js';
 import { filterData, setFilterChange, setFilterReset } from './filter.js';
 import { showAlert } from './util.js';
 const CREATE_PINS_DELAY = 500;
+const OFFERS_CARD_NUMBER = 10;
 const map = L.map('map-canvas')
   .on('load', () => {
     activateMapForm();
@@ -53,7 +54,6 @@ const adLayer = L.layerGroup().addTo(map);
 const processData = similarData => {
   map.closePopup();
   adLayer.clearLayers();
-  const OFFERS_CARD_NUMBER = 10;
 
   similarData
     .filter(filterData)
@@ -78,9 +78,9 @@ const processData = similarData => {
         .bindPopup(renderCard(ad));
     });
 }
-enableFilter();
 getData((data) => {
   processData(data);
+  enableFilter();
   setFilterReset(() => processData(data));
   setFilterChange(_.debounce(
     () => processData(data),

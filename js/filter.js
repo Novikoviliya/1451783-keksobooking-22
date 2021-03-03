@@ -19,7 +19,7 @@ const disableFilter = () => {
   });
   featuresSelect.disabled = true;
 };
-
+disableFilter();
 
 const enableFilter = () => {
   filters.classList.remove('map__filters--disabled');
