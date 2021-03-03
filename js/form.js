@@ -4,7 +4,7 @@ import { isEscEvent, isMouseEvent } from './util.js';
 import { sendData } from './server.js';
 import { mainMarker } from './map.js';
 import { resetPreviewImages } from './filter-image.js';
-const housePrice = {
+const housesPrice = {
   bungalow: 0,
   flat: 1000,
   house: 5000,
@@ -35,7 +35,7 @@ const successMessage = document.querySelector('#success').content.querySelector(
 const errorButton = errorMessage.querySelector('.error__button');
 //выбор опции меняет атрибуты минимального значения и плейсхолдера поля «Цена за ночь»
 const setMinPrice = () => {
-  const minPrice = housePrice[typeFlat.value];
+  const minPrice = housesPrice[typeFlat.value];
 
   price.placeholder = minPrice;
   price.min = minPrice;

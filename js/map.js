@@ -3,15 +3,15 @@
 /* global _:readonly */
 import { fillAddress, activateMapForm } from './form.js';
 import { renderCard } from './card.js';
-import { enableFilter } from './filter.js';
+import { enableFilter, disableFilter } from './filter.js';
 import { getData } from './server.js';
 import { filterData, setFilterChange, setFilterReset } from './filter.js';
-
 import { showAlert } from './util.js';
+const CREATE_PINS_DELAY = 500;
 const map = L.map('map-canvas')
   .on('load', () => {
     activateMapForm();
-    enableFilter();
+    disableFilter();
   })
   .setView({
     lat: 35.6895,
@@ -49,9 +49,10 @@ const onMove = (evt) => {
 }
 
 mainMarker.on('move', onMove);
-let littlePins = [];
+const adLayer = L.layerGroup().addTo(map);
 const processData = similarData => {
-  littlePins.forEach((pin) => pin.remove());
+  map.closePopup();
+  adLayer.clearLayers();
   const OFFERS_CARD_NUMBER = 10;
 
   similarData
@@ -73,12 +74,11 @@ const processData = similarData => {
       });
 
       littleMarkerIcon
-        .addTo(map)
+        .addTo(adLayer)
         .bindPopup(renderCard(ad));
-      littlePins.push(littleMarkerIcon);
     });
 }
-const CREATE_PINS_DELAY = 500;
+enableFilter();
 getData((data) => {
   processData(data);
   setFilterReset(() => processData(data));
