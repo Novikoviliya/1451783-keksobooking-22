@@ -3,9 +3,8 @@
 /* global _:readonly */
 import { fillAddress, activateMapForm } from './form.js';
 import { renderCard } from './card.js';
-import { enableFilter, disableFilter} from './filter.js';
 import { getData } from './server.js';
-import { filterData, setFilterChange, setFilterReset } from './filter.js';
+import { filterData, setFilterChange, setFilterReset,enableFilter, disableFilter } from './filter.js';
 import { showAlert } from './util.js';
 const CREATE_PINS_DELAY = 500;
 const OFFERS_CARD_NUMBER = 10;
