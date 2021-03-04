@@ -13,6 +13,7 @@ const map = L.map('map-canvas')
   .on('load', () => {
     activateMapForm();
     disableFilter();
+    enableFilter();
   })
   .setView({
     lat: 35.6895,
