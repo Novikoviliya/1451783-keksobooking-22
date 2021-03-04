@@ -4,7 +4,7 @@
 import { fillAddress, activateMapForm } from './form.js';
 import { renderCard } from './card.js';
 import { getData } from './server.js';
-import { filterData, setFilterChange, setFilterReset,enableFilter } from './filter.js';
+import { filterData, setFilterChange, setFilterReset, enableFilter } from './filter.js';
 import { showAlert } from './util.js';
 const CREATE_PINS_DELAY = 500;
 const OFFERS_CARD_NUMBER = 10;
