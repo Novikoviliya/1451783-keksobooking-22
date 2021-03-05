@@ -1,7 +1,12 @@
 'use strict'
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 const imgTemplate = document.querySelector('#card').content.querySelector('.popup__photo');
-
+const TYPES_GENERATION = {
+  flat: 'Квартира',
+  bungalow: 'Бунгало',
+  house: 'Дом',
+  palace: 'Дворец',
+}
 //Вставка изображений
 const insertPhotos = (element, array) => {
   element.innerHTML = '';
@@ -26,7 +31,7 @@ const insertFeatures = (element, array) => {
 const renderCard = (card) => {
   const { author, offer } = card;
   const cardElement = cardTemplate.cloneNode(true);
-
+  cardElement.querySelector('.popup__type').textContent = TYPES_GENERATION[offer.type];
   cardElement.querySelector('.popup__title').textContent = offer.title;
   cardElement.querySelector('.popup__text--address').textContent = offer.address;
   cardElement.querySelector('.popup__text--price').textContent = offer.price + ' ₽/ночь';
