@@ -1,5 +1,6 @@
 'use strict';
 /* global L:readonly */
+/* global _:readonly */
 import { fillAddress, activateMapForm } from './form.js';
 import { renderCard } from './card.js';
 import { enableFilter } from './filter.js';
@@ -54,7 +55,6 @@ const processData = similarData => {
   const OFFERS_CARD_NUMBER = 10;
 
   similarData
-    .slice()
     .filter(filterData)
     .slice(0, OFFERS_CARD_NUMBER)
     .forEach((ad) => {
@@ -78,10 +78,13 @@ const processData = similarData => {
       littlePins.push(littleMarkerIcon);
     });
 }
-
+const CREATE_PINS_DELAY = 500;
 getData((data) => {
   processData(data);
   setFilterReset(() => processData(data));
-  setFilterChange(() => processData(data));
+  setFilterChange(_.debounce(
+    () => processData(data),
+    CREATE_PINS_DELAY,
+  ));
 }, showAlert);
 export { mainMarker, processData };
