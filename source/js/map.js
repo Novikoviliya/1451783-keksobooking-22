@@ -1,6 +1,6 @@
 'use strict';
-/* global L:readonly */
 /* global _:readonly */
+/* global L:readonly */
 import { fillAddress, activateMapForm } from './form.js';
 import { renderCard } from './card.js';
 import { getData } from './server.js';
@@ -31,8 +31,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 const mainIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
-  iconSize: [45, 45],
-  iconAnchor: [45 / 2, 45],
+  iconSize: [46, 46],
+  iconAnchor: [23, 46],
 });
 
 const mainMarker = L.marker({
@@ -70,7 +70,7 @@ const processData = similarData => {
       const littleIcon = L.icon({
         iconUrl: 'img/pin.svg',
         iconSize: [40, 40],
-        iconAnchor: [40 / 2, 40],
+        iconAnchor: [20, 40],
       });
       const lat = ad.location.lat;
       const lng = ad.location.lng;
