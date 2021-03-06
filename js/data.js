@@ -1,23 +1,23 @@
 'use strict';
 import { getRandomArrayElement, getRandom, getRandomValue } from './util.js'
-const TITLE = [
+const TITLES = [
   'Radisson',
   'Mercure',
   'Buen retiro',
   'Hotel baltika',
 ];
-const CHECKIN_TIME = [
+const CHECKIN_TIMES = [
   '12:00',
   '13:00',
   '14:00',
 ];
-const CHECKOUT_TIME = [
+const CHECKOUT_TIMES = [
   '12:00',
   '13:00',
   '14:00',
 ];
 const LOCATION_PRECISION = 5;
-const TYPE = [
+const TYPES = [
   'palace',
   'flat',
   'house',
@@ -31,7 +31,7 @@ const FEATURES = [
   'elevator',
   'conditioner',
 ];
-const DESCRIPTION = [
+const DESCRIPTIONS = [
   'Отель Mercure Kaliningrad с террасой расположен в Калининграде',
   'К услугам гостей бесплатный Wi-Fi на всей территории и платная подземная парковка.',
   'Предоставляется бесплатный Wi-Fi. Второй раз здесь.',
@@ -50,23 +50,23 @@ const CoorY = {
   MIN: 139.70000,
   MAX: 139.80000,
 };
-const ImageNumber = {
+const ImageNumbers = {
   MIN: 1,
   MAX: 8,
 };
 
-const NumberForOffer = {
+const NumberForOffers = {
   MIN: 0,
   MAX: 10,
 };
 
-const PriceNumber = {
+const PriceNumbers = {
   MIN: 0,
   MAX: 10000,
 };
 //Описание автора
 const getAuthor = () => ({
-  avatar: `img/avatars/user0${getRandom(ImageNumber.MIN, ImageNumber.MAX)}.png`,
+  avatar: `img/avatars/user0${getRandom(ImageNumbers.MIN, ImageNumbers.MAX)}.png`,
 });
 
 //Локация
@@ -87,16 +87,16 @@ const getSingleArray = (items) => {
   return singleArray;
 };
 const generateOffer = () => ({
-  title: getRandomArrayElement(TITLE),
+  title: getRandomArrayElement(TITLES),
   address: Object.values(getLocation()),
-  price: getRandom(PriceNumber.MIN, PriceNumber.MAX),
-  type: getRandomArrayElement(TYPE),
-  rooms: getRandom(NumberForOffer.MIN, NumberForOffer.MAX),
-  guests: getRandom(NumberForOffer.MIN, NumberForOffer.MAX),
-  checkin: getRandomArrayElement(CHECKIN_TIME),
-  checkout: getRandomArrayElement(CHECKOUT_TIME),
+  price: getRandom(PriceNumbers.MIN, PriceNumbers.MAX),
+  type: getRandomArrayElement(TYPES),
+  rooms: getRandom(NumberForOffers.MIN, NumberForOffers.MAX),
+  guests: getRandom(NumberForOffers.MIN, NumberForOffers.MAX),
+  checkin: getRandomArrayElement(CHECKIN_TIMES),
+  checkout: getRandomArrayElement(CHECKOUT_TIMES),
   features: getSingleArray(FEATURES),
-  description: getRandomArrayElement(DESCRIPTION),
+  description: getRandomArrayElement(DESCRIPTIONS),
   photos: getSingleArray(PHOTOS),
 });
 const getObject = () => ({

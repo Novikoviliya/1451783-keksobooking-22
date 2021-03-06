@@ -1,29 +1,28 @@
-const filter = document.querySelector('.map__filters');
+const filters = document.querySelector('.map__filters');
 
-const selects = filter.querySelectorAll('select');
+const selects = filters.querySelectorAll('select');
 
-const typeSelect = filter.querySelector('#housing-type');
+const typesSelect = filters.querySelector('#housing-type');
 
-const priceSelect = filter.querySelector('#housing-price');
+const priceSelect = filters.querySelector('#housing-price');
 
-const roomsSelect = filter.querySelector('#housing-rooms');
+const roomsSelect = filters.querySelector('#housing-rooms');
 
-const guestsSelect = filter.querySelector('#housing-guests');
+const guestsSelect = filters.querySelector('#housing-guests');
 
-const featuresSelect = filter.querySelector('#housing-features');
+const featuresSelect = filters.querySelector('#housing-features');
 
 const disableFilter = () => {
-  filter.classList.add('map__filters--disabled');
+  filters.classList.add('map__filters--disabled');
   selects.forEach((select) => {
     select.disabled = true;
   });
   featuresSelect.disabled = true;
 };
-
 disableFilter();
 
 const enableFilter = () => {
-  filter.classList.remove('map__filters--disabled');
+  filters.classList.remove('map__filters--disabled');
   selects.forEach((select) => {
     select.disabled = false;
   });
@@ -55,7 +54,7 @@ const getFilterByFeatures = (card) => {
 };
 
 const filterData = (card) => {
-  const FILTER_BY_TYPE = typeSelect.value === 'any' || typeSelect.value === card.offer.type;
+  const FILTER_BY_TYPE = typesSelect.value === 'any' || typesSelect.value === card.offer.type;
 
   const FILTER_BY_ROOMS = roomsSelect.value === 'any' || +roomsSelect.value === card.offer.rooms;
 
@@ -68,15 +67,15 @@ const filterData = (card) => {
   return FILTER_BY_TYPE && FILTER_BY_ROOMS && FILTER_BY_GUESTS && FILTER_BY_PRICE && FILTER_BY_FEATURES;
 };
 const setFilterChange = (cb) => {
-  filter.addEventListener('change', () => {
+  filters.addEventListener('change', () => {
     cb();
   });
 }
 const setFilterReset = (cb) => {
-  filter.addEventListener('reset', () => {
+  filters.addEventListener('reset', () => {
     setTimeout(() => {
       cb();
     }, 0);
   });
 };
-export { enableFilter, disableFilter, filter, filterData, setFilterReset, setFilterChange };
+export { enableFilter, disableFilter, filters, filterData, setFilterReset, setFilterChange };

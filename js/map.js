@@ -3,15 +3,24 @@
 /* global _:readonly */
 import { fillAddress, activateMapForm } from './form.js';
 import { renderCard } from './card.js';
-import { enableFilter } from './filter.js';
 import { getData } from './server.js';
-import { filterData, setFilterChange, setFilterReset } from './filter.js';
-
+import { filterData, setFilterChange, setFilterReset, enableFilter, disableFilter } from './filter.js';
 import { showAlert } from './util.js';
+const CREATE_PINS_DELAY = 500;
+const OFFERS_CARD_NUMBER = 10;
 const map = L.map('map-canvas')
   .on('load', () => {
     activateMapForm();
-    enableFilter();
+    disableFilter();
+    getData((data) => {
+      processData(data);
+      enableFilter();
+      setFilterReset(() => processData(data));
+      setFilterChange(_.debounce(
+        () => processData(data),
+        CREATE_PINS_DELAY,
+      ));
+    }, showAlert);
   })
   .setView({
     lat: 35.6895,
@@ -49,10 +58,10 @@ const onMove = (evt) => {
 }
 
 mainMarker.on('move', onMove);
-let littlePins = [];
+const adLayer = L.layerGroup().addTo(map);
 const processData = similarData => {
-  littlePins.forEach((pin) => pin.remove());
-  const OFFERS_CARD_NUMBER = 10;
+  map.closePopup();
+  adLayer.clearLayers();
 
   similarData
     .filter(filterData)
@@ -73,18 +82,8 @@ const processData = similarData => {
       });
 
       littleMarkerIcon
-        .addTo(map)
+        .addTo(adLayer)
         .bindPopup(renderCard(ad));
-      littlePins.push(littleMarkerIcon);
     });
 }
-const CREATE_PINS_DELAY = 500;
-getData((data) => {
-  processData(data);
-  setFilterReset(() => processData(data));
-  setFilterChange(_.debounce(
-    () => processData(data),
-    CREATE_PINS_DELAY,
-  ));
-}, showAlert);
 export { mainMarker, processData };

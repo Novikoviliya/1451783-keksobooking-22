@@ -3,7 +3,8 @@ import { LOCATION_PRECISION } from './data.js';
 import { isEscEvent, isMouseEvent } from './util.js';
 import { sendData } from './server.js';
 import { mainMarker } from './map.js';
-const housePrice = {
+import { resetPreviewImages } from './filter-image.js';
+const housesPrice = {
   bungalow: 0,
   flat: 1000,
   house: 5000,
@@ -34,7 +35,7 @@ const successMessage = document.querySelector('#success').content.querySelector(
 const errorButton = errorMessage.querySelector('.error__button');
 //выбор опции меняет атрибуты минимального значения и плейсхолдера поля «Цена за ночь»
 const setMinPrice = () => {
-  const minPrice = housePrice[typeFlat.value];
+  const minPrice = housesPrice[typeFlat.value];
 
   price.placeholder = minPrice;
   price.min = minPrice;
@@ -117,6 +118,7 @@ guests.addEventListener('change', addCustomValiditytoCapacity);
 const resetForm = () => {
   form.reset();
   mapFilters.reset();
+  resetPreviewImages();
   mainMarker.setLatLng({ lat: 35.6895, lng: 139.692 });
   setTimeout(() => {
     fillAddress({ lat: 35.6895, long: 139.692 });
