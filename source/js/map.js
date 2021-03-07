@@ -1,6 +1,8 @@
 'use strict';
 /* global _:readonly */
-/* global L:readonly */
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+
 import { fillAddress, activateMapForm } from './form.js';
 import { renderCard } from './card.js';
 import { getData } from './server.js';
