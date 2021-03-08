@@ -1,8 +1,7 @@
 'use strict';
-/* global _:readonly */
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-
+import { debounce } from 'lodash';
 import { fillAddress, activateMapForm } from './form.js';
 import { renderCard } from './card.js';
 import { getData } from './server.js';
@@ -10,6 +9,11 @@ import { filterData, setFilterChange, setFilterReset, enableFilter, disableFilte
 import { showAlert } from './util.js';
 const CREATE_PINS_DELAY = 500;
 const OFFERS_CARD_NUMBER = 10;
+const littleIcon = L.icon({
+  iconUrl: 'img/pin.svg',
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
 const map = L.map('map-canvas')
   .on('load', () => {
     activateMapForm();
@@ -18,7 +22,7 @@ const map = L.map('map-canvas')
       processData(data);
       enableFilter();
       setFilterReset(() => processData(data));
-      setFilterChange(_.debounce(
+      setFilterChange(debounce(
         () => processData(data),
         CREATE_PINS_DELAY,
       ));
@@ -69,18 +73,13 @@ const processData = similarData => {
     .filter(filterData)
     .slice(0, OFFERS_CARD_NUMBER)
     .forEach((ad) => {
-      const littleIcon = L.icon({
-        iconUrl: 'img/pin.svg',
-        iconSize: [40, 40],
-        iconAnchor: [20, 40],
-      });
       const lat = ad.location.lat;
       const lng = ad.location.lng;
       const littleMarkerIcon = L.marker({
         lat,
         lng,
       }, {
-        littleIcon,
+        icon: littleIcon,
       });
 
       littleMarkerIcon
