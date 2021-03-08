@@ -1,13 +1,14 @@
 'use strict';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
+
 import { fillAddress, activateMapForm } from './form.js';
 import { renderCard } from './card.js';
 import { getData } from './server.js';
 import { filterData, setFilterChange, setFilterReset, enableFilter, disableFilter } from './filter.js';
 import { showAlert } from './util.js';
-const CREATE_PINS_DELAY = 500;
+const CREATE_PINS_DELAY = 5000;
 const OFFERS_CARD_NUMBER = 10;
 const littleIcon = L.icon({
   iconUrl: 'img/pin.svg',
