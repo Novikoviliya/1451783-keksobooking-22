@@ -125,7 +125,7 @@ const getSuccessMessage = () => {
 }
 
 const closeSuccessMessage = (evt) => {
-  if (isEscEvent(evt) || isMouseEvent(evt)) {
+  if (isMouseEvent(evt)) {
     evt.preventDefault();
     successMessage.remove();
     document.removeEventListener('keydown', closeSuccessMessage);
@@ -143,7 +143,7 @@ const getErrorMessage = () => {
 }
 
 const closeErrorMessage = (evt) => {
-  if (isEscEvent(evt) || isMouseEvent(evt)) {
+  if (isEscEvent(evt)) {
     evt.preventDefault();
     errorMessage.remove();
     document.removeEventListener('keydown', closeErrorMessage);
