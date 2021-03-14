@@ -1,4 +1,4 @@
-import { isEscEvent, isMouseEvent } from './util.js';
+import { isEscEvent, isMouseEvent, isEnterEvent } from './util.js';
 import { sendData } from './server.js';
 import { resetMarkerAndAddress } from './map.js';
 import { cleanPhoto } from './filter-image';
@@ -125,7 +125,7 @@ const getSuccessMessage = () => {
 }
 
 const closeSuccessMessage = (evt) => {
-  if (isMouseEvent(evt)) {
+  if (isEnterEvent(evt) || isMouseEvent(evt)) {
     evt.preventDefault();
     successMessage.remove();
     document.removeEventListener('keydown', closeSuccessMessage);

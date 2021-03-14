@@ -5,27 +5,36 @@ const TYPES_GENERATION = {
   palace: 'Дворец',
 }
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-const imgTemplate = document.querySelector('#card').content.querySelector('.popup__photo');
+
 //Вставка изображений
-const insertPhotos = (element, array) => {
-  element.innerHTML = '';
+const generatePhotosList = (arr, element) => {
+  const photosList = element.querySelector('.popup__photos');
+  photosList.innerHTML = '';
 
-  array.forEach((item) => {
-    const adPhoto = imgTemplate.cloneNode(true);
-    adPhoto.src = item;
-    element.appendChild(adPhoto);
-  });
-};
+  arr.forEach((item) => {
+    const photoItem = document.createElement('img');
+    photoItem.className = 'popup__photo';
+    photoItem.src = item;
+    photoItem.width = 45;
+    photoItem.height = 40;
+    photoItem.alt = 'Фотография жилья';
+    photosList.appendChild(photoItem);
+  })
+
+  return photosList;
+}
+
 //Удобства
-const insertFeatures = (element, array) => {
-  element.innerHTML = '';
+const insertFeatures = (arr, element) => {
+  const featuresList = element.querySelector('.popup__features');
+  featuresList.innerHTML = '';
 
-  array.forEach((item) => {
+  arr.forEach((item) => {
     const featureItem = document.createElement('li');
-    featureItem.classList.add('popup__feature');
-    featureItem.classList.add('popup__feature--' + item);
-    element.appendChild(featureItem);
+    featureItem.className = `popup__feature popup__feature--${item}`;
+    featuresList.appendChild(featureItem);
   });
+  return featuresList;
 };
 const renderCard = (card) => {
   const { author, offer } = card;
@@ -34,8 +43,8 @@ const renderCard = (card) => {
   cardElement.querySelector('.popup__title').textContent = offer.title;
   cardElement.querySelector('.popup__text--address').textContent = offer.address;
   cardElement.querySelector('.popup__text--price').textContent = offer.price + ' ₽/ночь';
-  insertFeatures(cardElement.querySelector('.popup__features'), offer.features);
-  insertPhotos(cardElement.querySelector('.popup__photos'), offer.photos);
+  insertFeatures(offer.features, cardElement);
+  generatePhotosList(offer.photos, cardElement);
   cardElement.querySelector('.popup__text--capacity').textContent = offer.rooms + ' комнаты для ' + offer.guests + ' гостей';
   cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + offer.checkin + ', выезд до ' + offer.checkout;
   cardElement.querySelector('.popup__description').textContent = offer.description;
