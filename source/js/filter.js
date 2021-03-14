@@ -1,3 +1,7 @@
+const LOW_PRICE = 10000;
+
+const HIGH_PRICE = 50000;
+
 const filters = document.querySelector('.map__filters');
 
 const selects = filters.querySelectorAll('select');
@@ -30,10 +34,6 @@ const enableFilter = () => {
 };
 
 const getFilterByPrice = (card) => {
-  const LOW_PRICE = 10000;
-
-  const HIGH_PRICE = 50000;
-
   switch (priceSelect.value) {
     case 'low':
       return card.offer.price < LOW_PRICE;
@@ -47,25 +47,28 @@ const getFilterByPrice = (card) => {
 };
 
 const getFilterByFeatures = (card) => {
-  const CHECKED_FEATURES = featuresSelect.querySelectorAll('input:checked');
-  return Array.from(CHECKED_FEATURES).every((input) => {
+  const checkedFeatures = featuresSelect.querySelectorAll('input:checked');
+  return Array.from(checkedFeatures).every((input) => {
     return card.offer.features.includes(input.value);
   });
 };
 
 const filterData = (card) => {
-  const FILTER_BY_TYPE = typesSelect.value === 'any' || typesSelect.value === card.offer.type;
+  const typesFilter = typesSelect.value === 'any' || typesSelect.value === card.offer.type;
 
-  const FILTER_BY_ROOMS = roomsSelect.value === 'any' || +roomsSelect.value === card.offer.rooms;
+  const roomsFilter = roomsSelect.value === 'any' || +roomsSelect.value === card.offer.rooms;
 
-  const FILTER_BY_GUESTS = guestsSelect.value === 'any' || +guestsSelect.value === card.offer.guests;
+  const guestsFilter = guestsSelect.value === 'any' || +guestsSelect.value === card.offer.guests;
 
-  const FILTER_BY_PRICE = getFilterByPrice(card);
+  const priceFilter = getFilterByPrice(card);
 
-  const FILTER_BY_FEATURES = getFilterByFeatures(card);
+  const featuresFilter = getFilterByFeatures(card);
 
-  return FILTER_BY_TYPE && FILTER_BY_ROOMS && FILTER_BY_GUESTS && FILTER_BY_PRICE && FILTER_BY_FEATURES;
+  return typesFilter && roomsFilter && guestsFilter && priceFilter && featuresFilter;
 };
+const filterAdverts = (adverts) => {
+  return adverts.slice().filter(filterData);
+}
 const setFilterChange = (cb) => {
   filters.addEventListener('change', () => {
     cb();
@@ -78,4 +81,4 @@ const setFilterReset = (cb) => {
     }, 0);
   });
 };
-export { enableFilter, disableFilter, filters, filterData, setFilterReset, setFilterChange };
+export { enableFilter, disableFilter, filters, filterAdverts, setFilterReset, setFilterChange };

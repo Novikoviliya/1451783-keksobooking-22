@@ -1,17 +1,3 @@
-'use strict';
-//Функция случайное целое число с точкой
-const getRandomValue = (min, max) => {
-  return Math.random() * (max - min) + min;
-}
-getRandomValue(1, 5);
-
-//Функция случайное число
-const getRandom = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
-getRandom(1, 5);
-
-const getRandomArrayElement = elements => {
-  return elements[getRandom(0, elements.length - 1)];
-};
 const isEscEvent = (evt) => {
   return evt.key === 'Escape' || evt.key === 'Esc';
 };
@@ -43,4 +29,4 @@ const showAlert = (message) => {
     alertContainer.remove();
   }, 3000);
 }
-export { getRandomArrayElement, getRandom, getRandomValue, isEscEvent, isEnterEvent, showAlert, isMouseEvent };
+export { isEscEvent, isEnterEvent, showAlert, isMouseEvent };

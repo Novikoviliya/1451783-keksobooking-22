@@ -1,6 +1,7 @@
-'use strict'
+const GET_DATA_URL = 'https://22.javascript.pages.academy/keksobooking/data';
+const SEND_DATA_URL = 'https://22.javascript.pages.academy/keksobooking';
 const getData = (onSuccess, onFail) => {
-  fetch('https://22.javascript.pages.academy/keksobooking/data')
+  fetch(GET_DATA_URL)
     .then((response) => response.json())
     .then((data) => {
       onSuccess(data);
@@ -10,7 +11,7 @@ const getData = (onSuccess, onFail) => {
     });
 };
 const sendData = (onSuccess, onFail, body) => {
-  fetch('https://22.javascript.pages.academy/keksobooking', { method: 'POST', body })
+  fetch(SEND_DATA_URL, { method: 'POST', body })
     .then((response) => {
       if (response.ok) {
         onSuccess();

@@ -1,16 +1,16 @@
-'use strict';
-import { LOCATION_PRECISION } from './data.js';
 import { isEscEvent, isMouseEvent } from './util.js';
 import { sendData } from './server.js';
-import { mainMarker } from './map.js';
-import { resetPreviewImages } from './filter-image.js';
+import { resetMarkerAndAddress } from './map.js';
+import { cleanPhoto } from './filter-image';
+
+const LOCATION_PRECISION = 5;
 const housesPrice = {
   bungalow: 0,
   flat: 1000,
   house: 5000,
   palace: 10000,
 };
-const roomS = {
+const room = {
   '1': { '1': 'для 1 гостя' },
   '2': { '2': 'для 2 гостей', '1': 'для 1 гостя' },
   '3': { '3': 'для 3 гостей', '2': 'для 2 гостей', '1': 'для 1 гостя' },
@@ -25,8 +25,8 @@ const formFields = form.querySelectorAll('label, input, select, textarea, button
 const numberRooms = document.querySelector('#room_number');
 const guests = document.querySelector('#capacity');
 const address = form.querySelector('#address');
-const timeIn = form.querySelector('#timein');
-const timeOut = form.querySelector('#timeout');
+const checkinSelect = form.querySelector('#timein');
+const checkoutSelect = form.querySelector('#timeout');
 const price = form.querySelector('#price');
 const typeFlat = form.querySelector('#type');
 const resetButton = form.querySelector('.ad-form__reset');
@@ -46,21 +46,13 @@ typeFlat.addEventListener('change', () => {
 });
 
 //выбор опции одного поля автоматически изменят значение другого.
-timeIn.addEventListener('change', () => {
-  toSyncTimeOut();
+checkinSelect.addEventListener('change', () => {
+  checkoutSelect.value = checkinSelect.value;
 });
 
-timeOut.addEventListener('change', () => {
-  toSyncTimeIn();
+checkoutSelect.addEventListener('change', () => {
+  checkinSelect.value = checkoutSelect.value;
 });
-
-const toSyncTimeOut = () => {
-  timeOut.value = timeIn.value;
-};
-
-const toSyncTimeIn = () => {
-  timeIn.value = timeOut.value;
-};
 //НЕактивное состояние формы
 let className = null;
 const changeName = () => {
@@ -91,21 +83,20 @@ deactivateMapForm();
 const activateMapForm = () => {
   enableForm(form, formFields);
   enableForm(mapFilters, mapFiltersFields);
-  address.setAttribute('readonly', 'readonly');
 }
 //Ручное редактирование запрещено
-const fillAddress = ({ lat, long }) => {
-  const latitude = lat.toFixed(LOCATION_PRECISION);
-  const longitude = long.toFixed(LOCATION_PRECISION);
-  address.value = `${latitude} ${longitude}`;
+const fillAddress = (addressInput, coordinates) => {
+  const lat = coordinates.lat.toFixed(LOCATION_PRECISION);
+  const lng = coordinates.lng.toFixed(LOCATION_PRECISION);
+  addressInput.value = `${lat}, ${lng}`;
 }
 //Проверка комнат и гостей
 const addCustomValiditytoCapacity = () => {
   guests.setCustomValidity('');
 
-  if (!Object.keys(roomS[numberRooms.value]).includes(guests.value)) {
+  if (!Object.keys(room[numberRooms.value]).includes(guests.value)) {
     guests.setCustomValidity(`При выборе ${numberRooms.value} ${(numberRooms.value, 'комнаты', 'комнат', 'комнат')} доступны места:
-    ${Object.values(roomS[numberRooms.value]).join(', ')}.`);
+    ${Object.values(room[numberRooms.value]).join(', ')}.`);
   }
 
   guests.reportValidity();
@@ -118,11 +109,8 @@ guests.addEventListener('change', addCustomValiditytoCapacity);
 const resetForm = () => {
   form.reset();
   mapFilters.reset();
-  resetPreviewImages();
-  mainMarker.setLatLng({ lat: 35.6895, lng: 139.692 });
-  setTimeout(() => {
-    fillAddress({ lat: 35.6895, long: 139.692 });
-  }, 0);
+  cleanPhoto();
+  resetMarkerAndAddress();
 };
 
 resetButton.addEventListener('click', resetForm);
@@ -173,4 +161,4 @@ const setFormSubmit = () => {
 };
 
 setFormSubmit();
-export { deactivateMapForm, activateMapForm, fillAddress, mapFilters };
+export { deactivateMapForm, activateMapForm, fillAddress, mapFilters, address };

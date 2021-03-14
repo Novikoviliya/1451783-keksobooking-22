@@ -1,12 +1,11 @@
-'use strict'
-const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-const imgTemplate = document.querySelector('#card').content.querySelector('.popup__photo');
 const TYPES_GENERATION = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
   house: 'Дом',
   palace: 'Дворец',
 }
+const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
+const imgTemplate = document.querySelector('#card').content.querySelector('.popup__photo');
 //Вставка изображений
 const insertPhotos = (element, array) => {
   element.innerHTML = '';
