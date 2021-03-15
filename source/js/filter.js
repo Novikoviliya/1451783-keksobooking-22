@@ -67,10 +67,17 @@ const filterData = (card) => {
 
   return typesFilter && roomsFilter && guestsFilter && priceFilter && featuresFilter;
 };
-//фильтрация объявлений должна заканчиваться как только мы набрали 10 подходящих меток, у вас же сначала filter пройдет до конца всего массива (допустим 100) потом из подходящих меток (допустим 50) отрежет первые 10 https://prnt.sc/10lascb
 const filterAdverts = (adverts) => {
-  return adverts.slice().filter(filterData);
+  const filteredData = [];
+  for (let i = 0; i < adverts.length; i++) {
+    if (filteredData.length >= 10) break;
+    if (filterData(adverts[i])) {
+      filteredData.push(adverts[i])
+    }
+  }
+  return filteredData;
 }
+//фильтрация объявлений должна заканчиваться как только мы набрали 10 подходящих меток, у вас же сначала filter пройдет до конца всего массива (допустим 100) потом из подходящих меток (допустим 50) отрежет первые 10 https://prnt.sc/10lascb
 const setFilterChange = (cb) => {
   filters.addEventListener('change', () => {
     cb();
