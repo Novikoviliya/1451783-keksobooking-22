@@ -11,7 +11,6 @@ import { showAlert } from './util.js';
 //здесь вообще дублирование константа так и просится https://prnt.sc/10lankq
 //тоже самое, лучше в map сделать функцию которая ресетит маркер, чем снова дублировать https://prnt.sc/10lapei
 const CREATE_PINS_DELAY = 500;
-const OFFERS_CARD_NUMBER = 10;
 const MAP_ZOOM = 13;
 const TOKYO_CITY_CENTER_COORD = {
   lat: 35.6895,
@@ -70,7 +69,6 @@ const processData = (similarData) => {
   map.closePopup();
   adLayer.clearLayers();
   filterAdverts(similarData)
-    .slice(0, OFFERS_CARD_NUMBER)
     .forEach((ad) => {
       const lat = ad.location.lat;
       const lng = ad.location.lng;
