@@ -10,7 +10,7 @@ const isMatching = (expansion) => {
     return expansion.endsWith(it);
   })
 }
-
+//надо заменить https://prnt.sc/10lawl2
 const cleanPhoto = () => {
   avatarPreview.src = 'img/muffin-grey.svg';
   photoPreview.innerHTML = '';

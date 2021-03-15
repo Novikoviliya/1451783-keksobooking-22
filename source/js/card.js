@@ -1,3 +1,6 @@
+//https://up.htmlacademy.ru/javascript/22/project/keksobooking#keksobooking-5-4 нет проверки на полей на неполные данные
+//insertFeatures и generatePhotosList изменил функции
+//https://prnt.sc/10lahbu поднять наверх
 const TYPES_GENERATION = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
