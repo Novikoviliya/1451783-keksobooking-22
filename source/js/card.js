@@ -10,11 +10,15 @@ const TYPES_GENERATION = {
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 //Вставка изображений
-const generatePhotosList = (arr, element) => {
+const generatePhotosList = (array, element) => {
   const photosList = element.querySelector('.popup__photos');
+  if(!array.length){
+    element.remove();
+    return;
+  }
   photosList.innerHTML = '';
 
-  arr.forEach((item) => {
+  array.forEach((item) => {
     const photoItem = document.createElement('img');
     photoItem.className = 'popup__photo';
     photoItem.src = item;
@@ -28,11 +32,15 @@ const generatePhotosList = (arr, element) => {
 }
 
 //Удобства
-const insertFeatures = (arr, element) => {
+const insertFeatures = (array, element) => {
   const featuresList = element.querySelector('.popup__features');
+  if(!array.length){
+    element.remove();
+    return;
+  }
   featuresList.innerHTML = '';
 
-  arr.forEach((item) => {
+  array.forEach((item) => {
     const featureItem = document.createElement('li');
     featureItem.className = `popup__feature popup__feature--${item}`;
     featuresList.appendChild(featureItem);
