@@ -3,6 +3,8 @@ const LOW_PRICE = 10000;
 
 const HIGH_PRICE = 50000;
 
+const STANDART_FILTER_VALUE = 'any';
+
 const filters = document.querySelector('.map__filters');
 
 const selects = filters.querySelectorAll('select');
@@ -55,11 +57,11 @@ const getFilterByFeatures = (card) => {
 };
 //здесь аналогично + нужно существительное https://prnt.sc/10lavh9 исправил
 const filterData = (card) => {
-  const typesFilter = typesSelect.value === 'any' || typesSelect.value === card.offer.type;
+  const typesFilter = typesSelect.value === STANDART_FILTER_VALUE || typesSelect.value === card.offer.type;
 
-  const roomsFilter = roomsSelect.value === 'any' || +roomsSelect.value === card.offer.rooms;
+  const roomsFilter = roomsSelect.value === STANDART_FILTER_VALUE || +roomsSelect.value === card.offer.rooms;
 
-  const guestsFilter = guestsSelect.value === 'any' || +guestsSelect.value === card.offer.guests;
+  const guestsFilter = guestsSelect.value === STANDART_FILTER_VALUE || +guestsSelect.value === card.offer.guests;
 
   const priceFilter = getFilterByPrice(card);
 
