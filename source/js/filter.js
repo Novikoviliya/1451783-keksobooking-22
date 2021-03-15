@@ -70,7 +70,9 @@ const filterData = (card) => {
 const filterAdverts = (adverts) => {
   const filteredData = [];
   for (let i = 0; i < adverts.length; i++) {
-    if (filteredData.length >= 10) break;
+    if (filteredData.length >= 10){
+      break;
+    }
     if (filterData(adverts[i])) {
       filteredData.push(adverts[i])
     }
