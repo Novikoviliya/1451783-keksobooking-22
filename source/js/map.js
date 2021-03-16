@@ -26,7 +26,6 @@ const MAIN_PIN_ICON = L.icon({
   iconSize: [46, 46],
   iconAnchor: [23, 46],
 });
-
 const map = L.map('map-canvas')
   .on('load', () => {
     activateMapForm();

@@ -90,6 +90,7 @@ const fillAddress = (addressInput, coordinates) => {
   const lat = coordinates.lat.toFixed(LOCATION_PRECISION);
   const lng = coordinates.lng.toFixed(LOCATION_PRECISION);
   addressInput.value = `${lat}, ${lng}`;
+  address.setAttribute('readonly', 'readonly');
 }
 //Проверка комнат и гостей
 const addCustomValiditytoCapacity = () => {
