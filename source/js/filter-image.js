@@ -51,4 +51,4 @@ avatarTake.addEventListener('change', () => {
 photoTake.addEventListener('change', () => {
   setFileImage(photoTake, photoPreview);
 });
-export {cleanPhoto};
+export { cleanPhoto };

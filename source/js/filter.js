@@ -71,7 +71,7 @@ const filterData = (card) => {
 const filterAdverts = (adverts) => {
   const filteredData = [];
   for (let i = 0; i < adverts.length; i++) {
-    if (filteredData.length >= 10){
+    if (filteredData.length >= 10) {
       return filteredData;
     }
     if (filterData(adverts[i])) {

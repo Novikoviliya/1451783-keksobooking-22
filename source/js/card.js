@@ -5,11 +5,9 @@ const TYPES_GENERATION = {
   palace: 'Дворец',
 }
 
-
-
 const generatePhotosList = (array, element) => {
   const photosList = element.querySelector('.popup__photos');
-  if(!array.length){
+  if (!array.length) {
     element.remove();
     return;
   }
@@ -31,7 +29,7 @@ const generatePhotosList = (array, element) => {
 
 const insertFeatures = (array, element) => {
   const featuresList = element.querySelector('.popup__features');
-  if(!array.length){
+  if (!array.length) {
     element.remove();
     return;
   }
@@ -57,7 +55,7 @@ const renderCard = (point) => {
   card.querySelector('.popup__description').textContent = point.offer.description;
   card.querySelector('.popup__avatar').src = point.author.avatar;
   card.querySelectorAll('*').forEach((item) => {
-    if (item.children.lenght === 0) {
+    if (item.children.length === 0) {
       item.remove();
     }
   });
