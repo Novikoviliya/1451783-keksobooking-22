@@ -1,4 +1,3 @@
-//url в константу https://prnt.sc/10lao5s
 const GET_DATA_URL = 'https://22.javascript.pages.academy/keksobooking/data';
 const SEND_DATA_URL = 'https://22.javascript.pages.academy/keksobooking';
 const getData = (onSuccess, onFail) => {

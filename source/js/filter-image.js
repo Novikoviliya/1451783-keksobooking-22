@@ -4,13 +4,13 @@ const avatarTake = document.querySelector('.ad-form-header__input');
 const photoTake = document.querySelector('.ad-form__input');
 const avatarPreview = document.querySelector('.ad-form-header__preview');
 const photoPreview = document.querySelector('.ad-form__photo');
-//Копии
+
 const isMatching = (expansion) => {
   return FILE_NAMES.some((it) => {
     return expansion.endsWith(it);
   })
 }
-//надо заменить https://prnt.sc/10lawl2
+
 const cleanPhoto = () => {
   avatarPreview.src = 'img/muffin-grey.svg';
   photoPreview.innerHTML = '';

@@ -1,4 +1,3 @@
-//поднять наверх https://prnt.sc/10lasnt
 const LOW_PRICE = 10000;
 
 const HIGH_PRICE = 50000;
@@ -48,14 +47,14 @@ const getFilterByPrice = (card) => {
       return true;
   }
 };
-//это не константа просто записать camelCase https://prnt.sc/10lav4l исправил
+
 const getFilterByFeatures = (card) => {
   const checkedFeatures = featuresSelect.querySelectorAll('input:checked');
   return Array.from(checkedFeatures).every((input) => {
     return card.offer.features.includes(input.value);
   });
 };
-//здесь аналогично + нужно существительное https://prnt.sc/10lavh9 исправил
+
 const filterData = (card) => {
   const typesFilter = typesSelect.value === STANDART_FILTER_VALUE || typesSelect.value === card.offer.type;
 
@@ -81,7 +80,7 @@ const filterAdverts = (adverts) => {
   }
   return filteredData;
 }
-//фильтрация объявлений должна заканчиваться как только мы набрали 10 подходящих меток, у вас же сначала filter пройдет до конца всего массива (допустим 100) потом из подходящих меток (допустим 50) отрежет первые 10 https://prnt.sc/10lascb
+
 const setFilterChange = (cb) => {
   filters.addEventListener('change', () => {
     cb();

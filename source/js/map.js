@@ -7,9 +7,7 @@ import { renderCard } from './card.js';
 import { getData } from './server.js';
 import { filterAdverts, setFilterChange, setFilterReset, enableFilter, disableFilter } from './filter.js';
 import { showAlert } from './util.js';
-//вынесите все значения из мап джс в константы или перечисления https://prnt.sc/10landv
-//здесь вообще дублирование константа так и просится https://prnt.sc/10lankq
-//тоже самое, лучше в map сделать функцию которая ресетит маркер, чем снова дублировать https://prnt.sc/10lapei
+
 const CREATE_PINS_DELAY = 500;
 const MAP_ZOOM = 13;
 const TOKYO_CITY_CENTER_COORD = {
@@ -54,7 +52,7 @@ const mainMarker = L.marker(
 
 const adLayer = L.layerGroup().addTo(map);
 mainMarker.addTo(map);
-//При движении балуна
+
 mainMarker.on('move', (evt) => {
   fillAddress(address, evt.target.getLatLng());
 });
