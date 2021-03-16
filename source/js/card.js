@@ -44,21 +44,31 @@ const insertFeatures = (array, element) => {
 };
 const renderCard = (point) => {
   const card = document.querySelector('#card').content.querySelector('.popup').cloneNode(true);
-  card.querySelector('.popup__type').textContent = TYPES_GENERATION[point.offer.type];
-  card.querySelector('.popup__title').textContent = point.offer.title;
-  card.querySelector('.popup__text--address').textContent = point.offer.address;
-  card.querySelector('.popup__text--price').textContent = point.offer.price + ' ₽/ночь';
+  const type = card.querySelector('.popup__type');
+  point.offer.type ? type.textContent = TYPES_GENERATION[point.offer.type] : type.remove();
+
+  const title = card.querySelector('.popup__title');
+  point.offer.title ? title.textContent = point.offer.title : title.remove();
+
+  const address = card.querySelector('.popup__text--address');
+  point.offer.address ? address.textContent = point.offer.address : address.remove();
+
+  const price = card.querySelector('.popup__text--price');
+  point.offer.price ? price.textContent = point.offer.price+ ' ₽/ночь' : price.remove();
+
   insertFeatures(point.offer.features, card);
   generatePhotosList(point.offer.photos, card);
-  card.querySelector('.popup__text--capacity').textContent = point.offer.rooms + ' комнаты для ' + point.offer.guests + ' гостей';
-  card.querySelector('.popup__text--time').textContent = 'Заезд после ' + point.offer.checkin + ', выезд до ' + point.offer.checkout;
-  card.querySelector('.popup__description').textContent = point.offer.description;
-  card.querySelector('.popup__avatar').src = point.author.avatar;
-  card.querySelectorAll('*').forEach((item) => {
-    if (item.children.length === 0) {
-      item.remove();
-    }
-  });
+
+  const description = card.querySelector('.popup__description');
+  point.offer.description ? description.textContent = point.offer.description : description.remove();
+  const avatar = card.querySelector('.popup__avatar');
+  point.offer.avatar ? avatar.src = point.offer.avatar  : avatar.remove();
+
+  const capacity = card.querySelector('.popup__text--capacity');
+  capacity ? capacity.textContent = point.offer.rooms + ' комнаты для ' + point.offer.guests + ' гостей'  : capacity.remove();
+  const time = card.querySelector('.popup__text--time');
+  time ? time.textContent = 'Заезд после ' + point.offer.checkin + ', выезд до ' + point.offer.checkout : time.remove();
+
   return card;
 };
 
