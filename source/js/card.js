@@ -8,7 +8,7 @@ const TYPES_GENERATION = {
 const generatePhotosList = (array, element) => {
   const photosList = element.querySelector('.popup__photos');
   if (!array.length) {
-    element.remove();
+    photosList.remove();
     return;
   }
   photosList.innerHTML = '';
@@ -30,7 +30,7 @@ const generatePhotosList = (array, element) => {
 const insertFeatures = (array, element) => {
   const featuresList = element.querySelector('.popup__features');
   if (!array.length) {
-    element.remove();
+    featuresList.remove();
     return;
   }
   featuresList.innerHTML = '';
@@ -42,34 +42,38 @@ const insertFeatures = (array, element) => {
   });
   return featuresList;
 };
+
 const renderCard = (point) => {
   const card = document.querySelector('#card').content.querySelector('.popup').cloneNode(true);
+
+  const { offer, author } = point;
+
   const type = card.querySelector('.popup__type');
-  point.offer.type ? type.textContent = TYPES_GENERATION[point.offer.type] : type.remove();
+  offer.type ? type.textContent = TYPES_GENERATION[offer.type] : type.remove();
 
   const title = card.querySelector('.popup__title');
-  point.offer.title ? title.textContent = point.offer.title : title.remove();
+  offer.title ? title.textContent = offer.title : title.remove();
 
   const address = card.querySelector('.popup__text--address');
-  point.offer.address ? address.textContent = point.offer.address : address.remove();
+  offer.address ? address.textContent = offer.address : address.remove();
 
   const price = card.querySelector('.popup__text--price');
-  point.offer.price ? price.textContent = point.offer.price+ ' ₽/ночь' : price.remove();
+  offer.price ? price.textContent = offer.price + ' ₽/ночь' : price.remove();
 
-  insertFeatures(point.offer.features, card);
-  generatePhotosList(point.offer.photos, card);
-
-  const description = card.querySelector('.popup__description');
-  point.offer.description ? description.textContent = point.offer.description : description.remove();
-  const avatar = card.querySelector('.popup__avatar');
-  point.offer.avatar ? avatar.src = point.offer.avatar  : avatar.remove();
+  insertFeatures(offer.features, card);
+  generatePhotosList(offer.photos, card);
 
   const capacity = card.querySelector('.popup__text--capacity');
-  capacity ? capacity.textContent = point.offer.rooms + ' комнаты для ' + point.offer.guests + ' гостей'  : capacity.remove();
-  const time = card.querySelector('.popup__text--time');
-  time ? time.textContent = 'Заезд после ' + point.offer.checkin + ', выезд до ' + point.offer.checkout : time.remove();
+  offer.rooms && offer.guests ? capacity.textContent = offer.rooms + ' комнаты для ' + offer.guests + ' гостей' : capacity.remove();
 
+  const time = card.querySelector('.popup__text--time');
+  offer.checkin && offer.checkout ? time.textContent = 'Заезд после ' + offer.checkin + ', выезд до ' + offer.checkout : time.remove();
+
+  const description = card.querySelector('.popup__description');
+  offer.description ? description.textContent = offer.description : description.remove();
+
+  const avatar = card.querySelector('.popup__avatar');
+  author.avatar ? avatar.src = author.avatar : avatar.remove();
   return card;
 };
-
 export { renderCard };
